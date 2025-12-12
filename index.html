@@ -1,398 +1,545 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <title>BewegungsCheck AI | Dein Bewegungsprofil in 10 Min</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Kostenloser Bewegungstest - Entdecke deine Mobility-Schwächen und erhalte einen personalisierten Trainingsplan in nur 10 Minuten.">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bewegungstest</title>
+    <style>
+        /* Reset and Base Styles */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                        linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            max-width: 600px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background-color: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background-color: #667eea;
+            color: white;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 60px 0;
+        }
+
+        /* Section Styles */
+        section {
+            margin-bottom: 60px;
+        }
+
+        section h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: 30px;
+            color: #333;
+            text-align: center;
+            position: relative;
+        }
+
+        section h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Card Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        /* Features Section */
+        .features {
+            background: white;
+            padding: 60px 0;
+            margin: 0 -20px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 800px;
+            margin: 30px auto 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background: #f0f2ff;
+        }
+
+        .feature-icon {
+            flex-shrink: 0;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .feature-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .feature-content p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 40px auto 0;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background: #2d3748;
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h4 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #4a5568;
+            color: #a0aec0;
+            font-size: 0.9rem;
+        }
+
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                justify-content: center;
+            }
+
+            .hero {
+                padding: 60px 20px;
+            }
+
+            .contact-form {
+                padding: 25px;
+            }
+
+            .feature-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .feature-icon {
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav ul {
+                gap: 10px;
+            }
+
+            nav a {
+                padding: 6px 10px;
+                font-size: 0.9rem;
+            }
+
+            .card {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Top-Nav mit Language Switch -->
-  <header class="nav">
-    <div class="nav-container">
-      <a href="#" class="logo">BewegungsCheck AI</a>
-      <nav class="nav-links" aria-label="Hauptnavigation">
-        <a href="#features">Funktionsweise</a>
-        <a href="#pricing">Preise</a>
-        <a href="#integrations">Integrationen</a>
-      </nav>
-      <div class="auth-controls">
-        <button id="loginBtn" class="btn-secondary" type="button" aria-label="Zum Login">Login</button>
-        <div class="lang-switch" role="group" aria-label="Sprachauswahl">
-          <button type="button" data-lang="de" class="lang-btn active" aria-pressed="true" aria-label="Deutsch">🇩🇪</button>
-          <button type="button" data-lang="en" class="lang-btn" aria-pressed="false" aria-label="English">🇺🇸</button>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">Bewegungstest</div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#about">Über uns</a></li>
+                    <li><a href="#contact">Kontakt</a></li>
+                </ul>
+            </nav>
         </div>
-      </div>
-    </div>
-  </header>
+    </header>
 
-  <!-- Hero-Bereich -->
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="hero-content">
-      <h1 id="hero-title" data-i18n="hero_title">Dein Bewegungsprofil in 10 Min</h1>
-      <p data-i18n="hero_text">Kostenloser Test zeigt Mobility-Schwächen + personalisierten Trainingsplan</p>
-      <div class="hero-cta">
-        <a href="#test" class="btn-primary btn-large" data-i18n="start_test">Jetzt kostenlos testen</a>
-        <a href="#pricing" class="btn-secondary btn-large" data-i18n="see_prices">Preise sehen</a>
-      </div>
-    </div>
-    <div class="hero-image">
-      <div class="placeholder-image hero-placeholder" aria-hidden="true"></div>
-    </div>
-  </section>
-
-  <!-- Funktionsweise (3-Stufen) -->
-  <section id="features" class="features-section" aria-labelledby="features-title">
-    <div class="container">
-      <h2 id="features-title" data-i18n="how_it_works">So funktioniert's</h2>
-      <div class="steps-grid">
-        <article class="step-card">
-          <div class="step-number" aria-hidden="true">1</div>
-          <h3 data-i18n="step1_title">Gratis Schnelltest</h3>
-          <p data-i18n="step1_text">10 Minuten → Dein Bewegungsprofil + erste Schwächen</p>
-        </article>
-        <article class="step-card">
-          <div class="step-number" aria-hidden="true">2</div>
-          <h3 data-i18n="step2_title">Detail-Test (49€)</h3>
-          <p data-i18n="step2_text">30 Min Video + PDF-Plan + 1h Beratung</p>
-        </article>
-        <article class="step-card">
-          <div class="step-number" aria-hidden="true">3</div>
-          <h3 data-i18n="step3_title">KI-Abo</h3>
-          <p data-i18n="step3_text">Wöchentliche Updates + Wearable-Sync</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- Profil/Dashboard (nach Login) -->
-  <section id="dashboard" class="dashboard-section hidden" aria-labelledby="dashboard-title">
-    <div class="container">
-      <div class="dashboard-header">
-        <h2 id="dashboard-title" data-i18n="profile_title">Dein Profil</h2>
-        <button id="logoutBtn" class="btn-secondary" type="button">Logout</button>
-      </div>
-      <div class="profile-grid">
-        <div class="profile-stats">
-          <div class="stat-card">
-            <h3>Mobility-Score</h3>
-            <div class="stat-value">72%</div>
-          </div>
-          <div class="stat-card">
-            <h3>Letzter Test</h3>
-            <div class="stat-value"><time datetime="2025-12-12">12.12.2025</time></div>
-          </div>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Willkommen beim Bewegungstest</h1>
+            <p>Entdecken Sie neue Möglichkeiten, Ihre Beweglichkeit zu testen und zu verbessern. Professionell, einfach und effektiv.</p>
+            <a href="#features" class="btn">Mehr erfahren</a>
         </div>
-        <div class="upload-zone">
-          <h3 data-i18n="upload_title">Daten importieren</h3>
-          <div class="providers-grid">
-            <button type="button" class="provider-btn" data-provider="garmin" aria-label="Mit Garmin verbinden">🔗 Garmin</button>
-            <button type="button" class="provider-btn" data-provider="strava" aria-label="Mit Strava verbinden">🏃 Strava</button>
-            <button type="button" class="provider-btn" data-provider="apple" aria-label="Mit Apple Health verbinden">🍎 Apple Health</button>
-            <button type="button" class="provider-btn" data-provider="fitbit" aria-label="Mit Fitbit verbinden">💪 Fitbit</button>
-          </div>
-          <div class="dropzone" id="fileDropzone" role="button" tabindex="0" aria-label="Dateien hier ablegen oder klicken zum Hochladen">
-            <p data-i18n="dropzone_text">FIT/GPX Dateien hier ablegen</p>
-            <input type="file" id="fileInput" accept=".fit,.gpx" multiple hidden>
-          </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Cards Section -->
+            <section id="about">
+                <h2>Was wir bieten</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">🎯</div>
+                        <h3>Präzise Analyse</h3>
+                        <p>Unsere Tests liefern genaue Ergebnisse über Ihre aktuelle Beweglichkeit und zeigen Verbesserungspotenziale auf.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📊</div>
+                        <h3>Detaillierte Auswertung</h3>
+                        <p>Erhalten Sie umfassende Berichte mit personalisierten Empfehlungen basierend auf Ihren individuellen Ergebnissen.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🚀</div>
+                        <h3>Fortschrittstracking</h3>
+                        <p>Verfolgen Sie Ihre Entwicklung über Zeit und sehen Sie, wie sich Ihre Beweglichkeit kontinuierlich verbessert.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="features" id="features">
+                <h2>Unsere Features</h2>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <div class="feature-content">
+                            <h4>Einfache Bedienung</h4>
+                            <p>Intuitive Benutzeroberfläche, die keine Vorkenntnisse erfordert. Starten Sie sofort mit Ihrem ersten Test.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <div class="feature-content">
+                            <h4>Wissenschaftlich fundiert</h4>
+                            <p>Alle Tests basieren auf aktuellen sportwissenschaftlichen Erkenntnissen und bewährten Methoden.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <div class="feature-content">
+                            <h4>Für alle Altersgruppen</h4>
+                            <p>Anpassbare Testverfahren, die für Jugendliche bis Senioren geeignet sind.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <div class="feature-content">
+                            <h4>Datenschutz garantiert</h4>
+                            <p>Ihre Daten sind bei uns sicher. Wir halten uns an strenge Datenschutzrichtlinien.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact">
+                <h2>Kontaktieren Sie uns</h2>
+                <form class="contact-form" action="#" method="post">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Ihr vollständiger Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-Mail</label>
+                        <input type="email" id="email" name="email" placeholder="ihre.email@beispiel.de" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Nachricht</label>
+                        <textarea id="message" name="message" placeholder="Wie können wir Ihnen helfen?" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Nachricht senden</button>
+                </form>
+            </section>
         </div>
-      </div>
-    </div>
-  </section>
+    </main>
 
-  <!-- Preise/Stufen-Details -->
-  <section id="pricing" class="pricing-section" aria-labelledby="pricing-title">
-    <div class="container">
-      <h2 id="pricing-title" data-i18n="pricing_title">Wähle dein Paket</h2>
-      
-      <div class="pricing-grid">
-        <!-- Stufe 1: Gratis -->
-        <article class="pricing-card">
-          <div class="card-header">
-            <h3>Gratis Schnelltest</h3>
-            <div class="price"><span class="price-value">0€</span></div>
-          </div>
-          <ul class="features" role="list">
-            <li>✓ 10-Min Test</li>
-            <li>✓ Bewegungsprofil</li>
-            <li>✓ Erste Empfehlungen</li>
-          </ul>
-          <a href="#test" class="btn-primary full-width">Test starten</a>
-        </article>
-
-        <!-- Stufe 2: Einmalig -->
-        <article class="pricing-card featured">
-          <div class="badge" aria-label="Empfohlenes Paket">Empfohlen</div>
-          <div class="card-header">
-            <h3>Detail-Analyse</h3>
-            <div class="price"><span class="price-value">49€</span> <span class="price-period">einmalig</span></div>
-          </div>
-          <ul class="features" role="list">
-            <li>✓ 30-Min Video-Test</li>
-            <li>✓ Ausführlicher Plan</li>
-            <li>✓ 1h Video-Call</li>
-          </ul>
-          <a href="#checkout" class="btn-primary full-width">Jetzt kaufen</a>
-        </article>
-      </div>
-
-      <!-- Stufe 3: Abo-Slider -->
-      <div class="subscription-slider" aria-label="Abo-Modelle">
-        <h3 class="slider-title" data-i18n="subscription_title">Abo-Modelle</h3>
-        <div class="slider-container">
-          <div class="slider-track" id="sliderTrack">
-            <article class="subscription-card">
-              <h4>Basic</h4>
-              <div class="price"><span class="price-value">19€</span> <span class="price-period">/ Monat</span></div>
-              <ul role="list">
-                <li>✓ Wöchentliche Updates</li>
-                <li>✓ PDF-Pläne</li>
-              </ul>
-              <button type="button" class="btn-secondary full-width">Auswählen</button>
-            </article>
-            <article class="subscription-card featured">
-              <div class="badge">Pro</div>
-              <h4>Pro</h4>
-              <div class="price"><span class="price-value">39€</span> <span class="price-period">/ Monat</span></div>
-              <ul role="list">
-                <li>✓ Alle Basic Features</li>
-                <li>✓ Wearable-Sync</li>
-                <li>✓ Live-Feedback</li>
-              </ul>
-              <button type="button" class="btn-primary full-width">Auswählen</button>
-            </article>
-            <article class="subscription-card">
-              <h4>Premium</h4>
-              <div class="price"><span class="price-value">69€</span> <span class="price-period">/ Monat</span></div>
-              <ul role="list">
-                <li>✓ Alle Pro Features</li>
-                <li>✓ 1:1 Coaching</li>
-                <li>✓ Prioritätssupport</li>
-              </ul>
-              <button type="button" class="btn-secondary full-width">Auswählen</button>
-            </article>
-          </div>
-          <nav class="slider-nav" aria-label="Slider Navigation">
-            <button type="button" class="slider-prev" aria-label="Vorheriges Abo">‹</button>
-            <button type="button" class="slider-next" aria-label="Nächstes Abo">›</button>
-          </nav>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Bewegungstest</h4>
+                    <p style="color: #a0aec0;">Ihre Beweglichkeit ist unsere Priorität. Professionelle Tests für ein besseres Wohlbefinden.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#about">Über uns</a></li>
+                        <li><a href="#contact">Kontakt</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Rechtliches</h4>
+                    <ul>
+                        <li><a href="#">Impressum</a></li>
+                        <li><a href="#">Datenschutz</a></li>
+                        <li><a href="#">AGB</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Kontakt</h4>
+                    <ul>
+                        <li><a href="mailto:info@bewegungstest.de">info@bewegungstest.de</a></li>
+                        <li><a href="tel:+49123456789">+49 123 456 789</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Bewegungstest. Alle Rechte vorbehalten.</p>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Integrationen -->
-  <section id="integrations" class="integrations-section" aria-labelledby="integrations-title">
-    <div class="container">
-      <h2 id="integrations-title" data-i18n="integrations_title">Perfekte Integrationen</h2>
-      <p data-i18n="integrations_text">Automatische Daten-Sync für präzise Trainingspläne</p>
-      <div class="integrations-grid">
-        <article class="integration-item">
-          <img src="https://via.placeholder.com/80x80/007AFF/FFFFFF?text=Garmin" alt="Garmin Logo" loading="lazy" width="80" height="80">
-          <h4>Garmin Connect</h4>
-        </article>
-        <article class="integration-item">
-          <img src="https://via.placeholder.com/80x80/FC3C36/FFFFFF?text=Strava" alt="Strava Logo" loading="lazy" width="80" height="80">
-          <h4>Strava</h4>
-        </article>
-        <article class="integration-item">
-          <img src="https://via.placeholder.com/80x80/000000/FFFFFF?text=Apple" alt="Apple Health Logo" loading="lazy" width="80" height="80">
-          <h4>Apple Health</h4>
-        </article>
-        <article class="integration-item">
-          <img src="https://via.placeholder.com/80x80/00B090/FFFFFF?text=Fitbit" alt="Fitbit Logo" loading="lazy" width="80" height="80">
-          <h4>Fitbit</h4>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <p class="disclaimer" data-i18n="disclaimer">Hinweis: Dieses Angebot dient der Bewegungs- und Gesundheitsentwicklung und ersetzt keine ärztliche Diagnose.</p>
-      <div class="footer-links">
-        <a href="#">Impressum</a>
-        <a href="#">Datenschutz</a>
-        <span id="year"></span>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    // Translations object
-    const translations = {
-      de: {
-        hero_title: "Dein Bewegungsprofil in 10 Min",
-        hero_text: "Kostenloser Test zeigt Mobility-Schwächen + personalisierten Trainingsplan",
-        start_test: "Jetzt kostenlos testen",
-        see_prices: "Preise sehen",
-        how_it_works: "So funktioniert's",
-        step1_title: "Gratis Schnelltest",
-        step1_text: "10 Minuten → Dein Bewegungsprofil + erste Schwächen",
-        step2_title: "Detail-Test (49€)",
-        step2_text: "30 Min Video + PDF-Plan + 1h Beratung",
-        step3_title: "KI-Abo",
-        step3_text: "Wöchentliche Updates + Wearable-Sync",
-        profile_title: "Dein Profil",
-        upload_title: "Daten importieren",
-        dropzone_text: "FIT/GPX Dateien hier ablegen",
-        pricing_title: "Wähle dein Paket",
-        subscription_title: "Abo-Modelle",
-        integrations_title: "Perfekte Integrationen",
-        integrations_text: "Automatische Daten-Sync für präzise Trainingspläne",
-        disclaimer: "Hinweis: Dieses Angebot dient der Bewegungs- und Gesundheitsentwicklung und ersetzt keine ärztliche Diagnose."
-      },
-      en: {
-        hero_title: "Your Movement Profile in 10 Min",
-        hero_text: "Free test reveals mobility weaknesses + personalized training plan",
-        start_test: "Start free test",
-        see_prices: "See prices",
-        how_it_works: "How it works",
-        step1_title: "Free Quick Test",
-        step1_text: "10 minutes → Your movement profile + first weaknesses",
-        step2_title: "Detail Test (49€)",
-        step2_text: "30 min video + PDF plan + 1h consultation",
-        step3_title: "AI Subscription",
-        step3_text: "Weekly updates + wearable sync",
-        profile_title: "Your Profile",
-        upload_title: "Import data",
-        dropzone_text: "Drop FIT/GPX files here",
-        pricing_title: "Choose your package",
-        subscription_title: "Subscription Plans",
-        integrations_title: "Perfect integrations",
-        integrations_text: "Automatic data sync for precise training plans",
-        disclaimer: "Disclaimer: This offer supports movement and health development and does not replace medical diagnosis."
-      }
-    };
-
-    // Current language state
-    let currentLang = localStorage.getItem('lang') || 'de';
-
-    // Language Switch Function
-    function setLang(lang) {
-      currentLang = lang;
-      localStorage.setItem('lang', lang);
-      document.documentElement.lang = lang;
-      
-      // Update all translatable elements
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.dataset.i18n;
-        if (translations[lang] && translations[lang][key]) {
-          el.textContent = translations[lang][key];
-        }
-      });
-      
-      // Update active lang button
-      document.querySelectorAll('.lang-btn').forEach(btn => {
-        const isActive = btn.dataset.lang === lang;
-        btn.classList.toggle('active', isActive);
-        btn.setAttribute('aria-pressed', isActive);
-      });
-    }
-
-    // Initialize language on page load
-    document.addEventListener('DOMContentLoaded', () => {
-      setLang(currentLang);
-      
-      // Language switch event listeners
-      document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.addEventListener('click', () => setLang(btn.dataset.lang));
-      });
-
-      // Login/Logout functionality
-      const loginBtn = document.getElementById('loginBtn');
-      const logoutBtn = document.getElementById('logoutBtn');
-      const dashboard = document.getElementById('dashboard');
-
-      loginBtn.addEventListener('click', () => {
-        loginBtn.textContent = 'Profil';
-        dashboard.classList.remove('hidden');
-        dashboard.scrollIntoView({ behavior: 'smooth' });
-      });
-
-      logoutBtn.addEventListener('click', () => {
-        loginBtn.textContent = 'Login';
-        dashboard.classList.add('hidden');
-      });
-
-      // File Dropzone functionality
-      const dropzone = document.getElementById('fileDropzone');
-      const fileInput = document.getElementById('fileInput');
-
-      dropzone.addEventListener('click', () => fileInput.click());
-      
-      dropzone.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          fileInput.click();
-        }
-      });
-
-      dropzone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        dropzone.classList.add('dragover');
-      });
-
-      dropzone.addEventListener('dragleave', () => {
-        dropzone.classList.remove('dragover');
-      });
-
-      dropzone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        dropzone.classList.remove('dragover');
-        handleFiles(e.dataTransfer.files);
-      });
-
-      fileInput.addEventListener('change', (e) => {
-        handleFiles(e.target.files);
-      });
-
-      function handleFiles(files) {
-        if (files.length > 0) {
-          const fileNames = Array.from(files).map(f => f.name).join(', ');
-          dropzone.querySelector('p').textContent = `Hochgeladen: ${fileNames}`;
-        }
-      }
-
-      // Year update in footer
-      document.getElementById('year').textContent = `© ${new Date().getFullYear()} BewegungsCheck AI`;
-
-      // Slider functionality
-      let sliderIndex = 0;
-      const sliderTrack = document.getElementById('sliderTrack');
-      const sliderCards = sliderTrack.querySelectorAll('.subscription-card');
-      const prevBtn = document.querySelector('.slider-prev');
-      const nextBtn = document.querySelector('.slider-next');
-
-      function updateSlider() {
-        const cardWidth = 100 / 3;
-        sliderTrack.style.transform = `translateX(-${sliderIndex * cardWidth}%)`;
-      }
-
-      nextBtn.addEventListener('click', () => {
-        sliderIndex = (sliderIndex + 1) % sliderCards.length;
-        updateSlider();
-      });
-
-      prevBtn.addEventListener('click', () => {
-        sliderIndex = (sliderIndex - 1 + sliderCards.length) % sliderCards.length;
-        updateSlider();
-      });
-
-      // Provider buttons
-      document.querySelectorAll('.provider-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const provider = btn.dataset.provider;
-          btn.textContent = `✓ ${provider.charAt(0).toUpperCase() + provider.slice(1)} verbunden`;
-          btn.classList.add('connected');
-        });
-      });
-    });
-  </script>
+    </footer>
 </body>
 </html>
