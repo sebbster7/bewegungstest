@@ -33,7 +33,7 @@ export function initQuicktest() {
         } else {
             text = 'Du scheinst eher zurückhaltend und vorsichtig zu sein. Das kann eine Stärke sein – im Extended-Test erfährst du mehr.';
         }
-        text += ' Wenn du genauer verstehen möchtest, wie du deine Persönlichkeit gezielt einsetzen kannst, ist der detaillierte Test für 49 € der nächste Schritt.';
+        text += ' Wenn du genauer verstehen möchtest, wie du deine Bewegungsfähigkeiten gezielt einsetzen kannst, ist der detaillierte Test für 49 € der nächste Schritt.';
         resultEl.textContent = text;
     });
 }
