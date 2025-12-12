@@ -65,6 +65,11 @@ body {
   color: var(--muted);
 }
 
+.banner a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
 /* Hero-Sektionen */
 .hero {
   width: 100%;
@@ -209,7 +214,7 @@ body {
   max-width: 640px;
 }
 
-/* Kachelbereich */
+/* Kachelbereich (Stufen, Abos, Integrationen) */
 .tiles {
   display: grid;
   gap: 16px;
@@ -223,26 +228,30 @@ body {
 }
 
 .tile {
-    background: white;
+  background: #fff;
   color: #333;
   transition: all 0.3s ease;
   border-radius: 18px;
   padding: 30px 24px;
   text-align: left;
+  border: 1px solid rgba(0,0,0,0.04);
 }
 
 .tile:hover {
   background: #000;
-  color: white;
+  color: #fff;
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0,0,0,0.2);
 }
 
 .tile-dark {
+  background: #000;
+  color: #f5f5f7;
 }
 
 .tile-light {
-  background: white;}
+  background: #fff;
+}
 
 .tile h3 {
   font-size: 22px;
@@ -263,6 +272,10 @@ body {
   color: var(--accent);
 }
 
+.tile-dark .tile-link {
+  color: #f5f5f7;
+}
+
 /* Icons in Tiles */
 .tile-icon {
   width: 32px;
@@ -270,7 +283,7 @@ body {
   margin-bottom: 12px;
 }
 
-/* Split-Layout für Coaching */
+/* Split-Layout (Abo-Text + Bild) */
 .section-split .split-inner {
   display: flex;
   flex-direction: column;
@@ -297,12 +310,7 @@ body {
   }
 }
 
-/* Coaching-Bild */
-.coaching-image-wrapper {
-  display: flex;
-  justify-content: center;
-}
-
+/* Coaching-/Abo-Bild */
 .coaching-image {
   width: 100%;
   max-width: 420px;
@@ -315,10 +323,42 @@ body {
   list-style: none;
   padding-left: 0;
   margin-top: 16px;
+  font-size: 15px;
+  color: var(--text);
 }
 
 .bullet-list li::before {
   content: "• ";
+}
+
+/* Preisboxen (Stufe 2) */
+.price-box {
+  margin-top: 24px;
+  padding: 20px 18px;
+  border-radius: 16px;
+  border: 1px solid var(--border-soft);
+  background: var(--bg-grey);
+}
+
+.price-box h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+
+.price-box .price {
+  margin: 0 0 8px;
+  font-weight: 600;
+}
+
+.price-box .note {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Aboplan-Kacheln (innerhalb subscription) */
+#subscription .tiles .tile .price {
+  font-weight: 600;
+  margin-bottom: 8px;
 }
 
 /* Formulare */
@@ -360,6 +400,11 @@ textarea {
   margin-top: 18px;
   font-size: 15px;
   color: var(--text);
+}
+
+/* Über-mich-Bild */
+.about-image {
+  display: block;
 }
 
 /* Footer */
