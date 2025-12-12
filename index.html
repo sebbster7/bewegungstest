@@ -3,407 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bewegungstest</title>
-    <style>
-        /* Reset and Base Styles */
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            font-size: 16px;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f5f5f5;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Container */
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 25px;
-            flex-wrap: wrap;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 8px 12px;
-            border-radius: 6px;
-            transition: background-color 0.3s ease;
-        }
-
-        nav a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-                        linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 80px 20px;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
-        .hero p {
-            font-size: clamp(1rem, 2.5vw, 1.25rem);
-            max-width: 600px;
-            margin: 0 auto 30px;
-            opacity: 0.9;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 14px 32px;
-            background-color: white;
-            color: #667eea;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-primary {
-            background-color: #667eea;
-            color: white;
-        }
-
-        /* Main Content */
-        main {
-            flex: 1;
-            padding: 60px 0;
-        }
-
-        /* Section Styles */
-        section {
-            margin-bottom: 60px;
-        }
-
-        section h2 {
-            font-size: clamp(1.5rem, 3vw, 2rem);
-            margin-bottom: 30px;
-            color: #333;
-            text-align: center;
-            position: relative;
-        }
-
-        section h2::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            margin: 15px auto 0;
-            border-radius: 2px;
-        }
-
-        /* Card Grid */
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-        }
-
-        .card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 15px;
-            color: #667eea;
-        }
-
-        .card p {
-            color: #666;
-            line-height: 1.7;
-        }
-
-        .card-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        /* Features Section */
-        .features {
-            background: white;
-            padding: 60px 0;
-            margin: 0 -20px;
-            padding-left: 20px;
-            padding-right: 20px;
-        }
-
-        .feature-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            max-width: 800px;
-            margin: 30px auto 0;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            transition: background-color 0.3s ease;
-        }
-
-        .feature-item:hover {
-            background: #f0f2ff;
-        }
-
-        .feature-icon {
-            flex-shrink: 0;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-        }
-
-        .feature-content h4 {
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-            color: #333;
-        }
-
-        .feature-content p {
-            color: #666;
-            font-size: 0.95rem;
-        }
-
-        /* Contact Form */
-        .contact-form {
-            max-width: 600px;
-            margin: 40px auto 0;
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 14px 18px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-family: inherit;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-        }
-
-        .form-group textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        /* Footer */
-        footer {
-            background: #2d3748;
-            color: white;
-            padding: 40px 0 20px;
-            margin-top: auto;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 30px;
-        }
-
-        .footer-section h4 {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            color: #667eea;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section li {
-            margin-bottom: 10px;
-        }
-
-        .footer-section a {
-            color: #a0aec0;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section a:hover {
-            color: white;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #4a5568;
-            color: #a0aec0;
-            font-size: 0.9rem;
-        }
-
-        /* Utility Classes */
-        .text-center {
-            text-align: center;
-        }
-
-        .mt-20 {
-            margin-top: 20px;
-        }
-
-        .mb-20 {
-            margin-bottom: 20px;
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 768px) {
-            header .container {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            nav ul {
-                justify-content: center;
-            }
-
-            .hero {
-                padding: 60px 20px;
-            }
-
-            .contact-form {
-                padding: 25px;
-            }
-
-            .feature-item {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .feature-icon {
-                margin: 0 auto;
-            }
-        }
-
-        @media (max-width: 480px) {
-            nav ul {
-                gap: 10px;
-            }
-
-            nav a {
-                padding: 6px 10px;
-                font-size: 0.9rem;
-            }
-
-            .card {
-                padding: 20px;
-            }
-        }
-    </style>
+    <meta name="description" content="BewegungsCheck AI - Kostenloser Bewegungstest in 10 Minuten. Entdecke deine Mobility-Schwächen und erhalte einen personalisierten Trainingsplan.">
+    <title>BewegungsCheck AI | Dein Bewegungsprofil in 10 Minuten</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Header -->
     <header>
         <div class="container">
-            <div class="logo">Bewegungstest</div>
+            <a href="#home" class="logo">BewegungsCheck AI</a>
             <nav>
                 <ul>
                     <li><a href="#home">Home</a></li>
+                    <li><a href="#quicktest">Schnelltest</a></li>
                     <li><a href="#features">Features</a></li>
                     <li><a href="#about">Über uns</a></li>
                     <li><a href="#contact">Kontakt</a></li>
@@ -412,109 +27,415 @@
         </div>
     </header>
 
+    <!-- Announcement Banner -->
+    <div class="announcement-banner">
+        <div class="container">
+            <p>🎯 <strong>Jetzt NEU:</strong> Kostenloser Schnelltest in nur 10 Minuten! <a href="#quicktest">Direkt zum Test →</a></p>
+        </div>
+    </div>
+
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
-            <h1>Willkommen beim Bewegungstest</h1>
-            <p>Entdecken Sie neue Möglichkeiten, Ihre Beweglichkeit zu testen und zu verbessern. Professionell, einfach und effektiv.</p>
-            <a href="#features" class="btn">Mehr erfahren</a>
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Dein Bewegungsprofil in 10 Minuten</h1>
+                    <p>Entdecke deine Mobility-Schwächen und erhalte einen personalisierten Trainingsplan. Wissenschaftlich fundiert, einfach durchzuführen.</p>
+                    <div class="hero-buttons">
+                        <a href="#quicktest" class="btn btn-primary btn-large">Gratis Schnelltest starten</a>
+                        <a href="#features" class="btn btn-secondary btn-large">Mehr erfahren</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <!-- Placeholder für Hero-Bild -->
+                    <div class="image-placeholder hero-placeholder">
+                        <span>Hero Bild</span>
+                        <small>Empfohlen: 600x400px</small>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">10.000+</span>
+                    <span class="stat-label">Tests durchgeführt</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">98%</span>
+                    <span class="stat-label">Zufriedenheit</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">10 Min</span>
+                    <span class="stat-label">Testdauer</span>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Main Content -->
     <main>
-        <div class="container">
-            <!-- Cards Section -->
-            <section id="about">
-                <h2>Was wir bieten</h2>
-                <div class="card-grid">
-                    <div class="card">
-                        <div class="card-icon">🎯</div>
-                        <h3>Präzise Analyse</h3>
-                        <p>Unsere Tests liefern genaue Ergebnisse über Ihre aktuelle Beweglichkeit und zeigen Verbesserungspotenziale auf.</p>
+        <!-- Quick Test Section -->
+        <section class="quicktest-section" id="quicktest">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">Kostenlos</span>
+                    <h2>Bewegungs-Schnelltest</h2>
+                    <p class="section-subtitle">Beantworte 10 Fragen und erhalte sofort dein persönliches Bewegungsprofil</p>
+                </div>
+                
+                <div class="quicktest-container">
+                    <div class="quicktest-card" id="quicktest-card">
+                        <!-- Progress Bar -->
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progress-fill"></div>
+                            </div>
+                            <span class="progress-text" id="progress-text">Frage 1 von 10</span>
+                        </div>
+                        
+                        <!-- Question Container -->
+                        <div class="question-container" id="question-container">
+                            <h3 class="question-text" id="question-text">Wie oft trainierst du pro Woche?</h3>
+                            <div class="answers-container" id="answers-container">
+                                <!-- Answers werden per JavaScript eingefügt -->
+                            </div>
+                        </div>
+                        
+                        <!-- Navigation -->
+                        <div class="quicktest-nav">
+                            <button class="btn btn-secondary" id="prev-btn" disabled>← Zurück</button>
+                            <button class="btn btn-primary" id="next-btn" disabled>Weiter →</button>
+                        </div>
                     </div>
-                    <div class="card">
-                        <div class="card-icon">📊</div>
-                        <h3>Detaillierte Auswertung</h3>
-                        <p>Erhalten Sie umfassende Berichte mit personalisierten Empfehlungen basierend auf Ihren individuellen Ergebnissen.</p>
+                    
+                    <!-- Results Container (initially hidden) -->
+                    <div class="results-container hidden" id="results-container">
+                        <div class="results-card">
+                            <div class="results-header">
+                                <h3>🎉 Dein Bewegungsprofil</h3>
+                                <p>Basierend auf deinen Antworten haben wir folgende Auswertung erstellt:</p>
+                            </div>
+                            
+                            <div class="results-scores">
+                                <div class="score-item">
+                                    <div class="score-label">Mobilität</div>
+                                    <div class="score-bar">
+                                        <div class="score-fill" id="mobility-score" style="width: 0%"></div>
+                                    </div>
+                                    <div class="score-value" id="mobility-value">0%</div>
+                                </div>
+                                <div class="score-item">
+                                    <div class="score-label">Kraft</div>
+                                    <div class="score-bar">
+                                        <div class="score-fill" id="strength-score" style="width: 0%"></div>
+                                    </div>
+                                    <div class="score-value" id="strength-value">0%</div>
+                                </div>
+                                <div class="score-item">
+                                    <div class="score-label">Ausdauer</div>
+                                    <div class="score-bar">
+                                        <div class="score-fill" id="endurance-score" style="width: 0%"></div>
+                                    </div>
+                                    <div class="score-value" id="endurance-value">0%</div>
+                                </div>
+                                <div class="score-item">
+                                    <div class="score-label">Balance</div>
+                                    <div class="score-bar">
+                                        <div class="score-fill" id="balance-score" style="width: 0%"></div>
+                                    </div>
+                                    <div class="score-value" id="balance-value">0%</div>
+                                </div>
+                            </div>
+                            
+                            <div class="results-summary" id="results-summary">
+                                <!-- Summary wird per JavaScript eingefügt -->
+                            </div>
+                            
+                            <div class="results-actions">
+                                <button class="btn btn-primary" id="restart-btn">Test wiederholen</button>
+                                <a href="#contact" class="btn btn-secondary">Beratung anfragen</a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card">
-                        <div class="card-icon">🚀</div>
-                        <h3>Fortschrittstracking</h3>
-                        <p>Verfolgen Sie Ihre Entwicklung über Zeit und sehen Sie, wie sich Ihre Beweglichkeit kontinuierlich verbessert.</p>
+                    
+                    <div class="quicktest-image">
+                        <!-- Placeholder für Test-Bild -->
+                        <div class="image-placeholder">
+                            <span>Test Bild</span>
+                            <small>Empfohlen: 400x500px</small>
+                        </div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Features Section -->
-            <section class="features" id="features">
-                <h2>Unsere Features</h2>
-                <div class="feature-list">
-                    <div class="feature-item">
-                        <div class="feature-icon">✓</div>
+        <!-- Features Section -->
+        <section class="features-section" id="features">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Warum BewegungsCheck AI?</h2>
+                    <p class="section-subtitle">Modernste Technologie trifft auf sportwissenschaftliche Expertise</p>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-image">
+                            <div class="image-placeholder">
+                                <span>Feature 1</span>
+                                <small>300x200px</small>
+                            </div>
+                        </div>
                         <div class="feature-content">
-                            <h4>Einfache Bedienung</h4>
-                            <p>Intuitive Benutzeroberfläche, die keine Vorkenntnisse erfordert. Starten Sie sofort mit Ihrem ersten Test.</p>
+                            <div class="feature-icon">🎯</div>
+                            <h3>Präzise Analyse</h3>
+                            <p>KI-gestützte Auswertung deiner Beweglichkeit mit wissenschaftlich validierten Methoden.</p>
                         </div>
                     </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">✓</div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-image">
+                            <div class="image-placeholder">
+                                <span>Feature 2</span>
+                                <small>300x200px</small>
+                            </div>
+                        </div>
                         <div class="feature-content">
-                            <h4>Wissenschaftlich fundiert</h4>
-                            <p>Alle Tests basieren auf aktuellen sportwissenschaftlichen Erkenntnissen und bewährten Methoden.</p>
+                            <div class="feature-icon">📊</div>
+                            <h3>Personalisierter Plan</h3>
+                            <p>Erhalte individuelle Trainingsempfehlungen basierend auf deinem Profil.</p>
                         </div>
                     </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">✓</div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-image">
+                            <div class="image-placeholder">
+                                <span>Feature 3</span>
+                                <small>300x200px</small>
+                            </div>
+                        </div>
                         <div class="feature-content">
-                            <h4>Für alle Altersgruppen</h4>
-                            <p>Anpassbare Testverfahren, die für Jugendliche bis Senioren geeignet sind.</p>
+                            <div class="feature-icon">📈</div>
+                            <h3>Fortschrittstracking</h3>
+                            <p>Verfolge deine Entwicklung und sieh, wie du dich verbesserst.</p>
                         </div>
                     </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">✓</div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-image">
+                            <div class="image-placeholder">
+                                <span>Feature 4</span>
+                                <small>300x200px</small>
+                            </div>
+                        </div>
                         <div class="feature-content">
-                            <h4>Datenschutz garantiert</h4>
-                            <p>Ihre Daten sind bei uns sicher. Wir halten uns an strenge Datenschutzrichtlinien.</p>
+                            <div class="feature-icon">🔗</div>
+                            <h3>Wearable Integration</h3>
+                            <p>Verbinde deine Fitness-Tracker für noch genauere Analysen.</p>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Contact Section -->
-            <section id="contact">
-                <h2>Kontaktieren Sie uns</h2>
-                <form class="contact-form" action="#" method="post">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" placeholder="Ihr vollständiger Name" required>
+        <!-- About Section -->
+        <section class="about-section" id="about">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-image">
+                        <div class="image-placeholder large">
+                            <span>Über uns Bild</span>
+                            <small>Empfohlen: 500x600px</small>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="email">E-Mail</label>
-                        <input type="email" id="email" name="email" placeholder="ihre.email@beispiel.de" required>
+                    <div class="about-text">
+                        <span class="section-badge">Über uns</span>
+                        <h2>Dein Partner für bessere Beweglichkeit</h2>
+                        <p class="about-intro">BewegungsCheck AI wurde 2024 von einem Team aus Sportwissenschaftlern, Physiotherapeuten und KI-Experten gegründet.</p>
+                        <p>Unsere Mission ist es, jedem Menschen Zugang zu professioneller Bewegungsanalyse zu ermöglichen – einfach, schnell und von überall aus.</p>
+                        <p>Mit modernster KI-Technologie und wissenschaftlich fundierten Methoden helfen wir dir, deine Beweglichkeit zu verstehen und gezielt zu verbessern.</p>
+                        
+                        <div class="about-features">
+                            <div class="about-feature-item">
+                                <span class="check-icon">✓</span>
+                                <span>Wissenschaftlich validierte Tests</span>
+                            </div>
+                            <div class="about-feature-item">
+                                <span class="check-icon">✓</span>
+                                <span>Entwickelt von Experten</span>
+                            </div>
+                            <div class="about-feature-item">
+                                <span class="check-icon">✓</span>
+                                <span>DSGVO-konform & sicher</span>
+                            </div>
+                            <div class="about-feature-item">
+                                <span class="check-icon">✓</span>
+                                <span>Kontinuierliche Weiterentwicklung</span>
+                            </div>
+                        </div>
+                        
+                        <div class="about-team">
+                            <h4>Unser Team</h4>
+                            <div class="team-avatars">
+                                <div class="team-avatar">
+                                    <div class="avatar-placeholder">👨‍⚕️</div>
+                                    <span>Dr. Max M.</span>
+                                    <small>Sportwissenschaft</small>
+                                </div>
+                                <div class="team-avatar">
+                                    <div class="avatar-placeholder">👩‍💻</div>
+                                    <span>Sarah K.</span>
+                                    <small>KI-Entwicklung</small>
+                                </div>
+                                <div class="team-avatar">
+                                    <div class="avatar-placeholder">👨‍🔬</div>
+                                    <span>Thomas R.</span>
+                                    <small>Physiotherapie</small>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="message">Nachricht</label>
-                        <textarea id="message" name="message" placeholder="Wie können wir Ihnen helfen?" required></textarea>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Das sagen unsere Nutzer</h2>
+                    <p class="section-subtitle">Über 10.000 zufriedene Anwender vertrauen BewegungsCheck AI</p>
+                </div>
+                
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                            <p>"Der Schnelltest hat mir geholfen, meine Schwachstellen zu erkennen. Die Empfehlungen sind super praktisch!"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">M</div>
+                            <div class="author-info">
+                                <strong>Maria S.</strong>
+                                <span>Hobbyläuferin, 34</span>
+                            </div>
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Nachricht senden</button>
-                </form>
-            </section>
-        </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                            <p>"Endlich verstehe ich, warum ich immer Rückenprobleme hatte. Der Test war ein Augenöffner!"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">T</div>
+                            <div class="author-info">
+                                <strong>Thomas K.</strong>
+                                <span>Büroangestellter, 45</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                            <p>"Als Physiotherapeutin empfehle ich den Test allen meinen Patienten. Sehr professionell!"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">L</div>
+                            <div class="author-info">
+                                <strong>Lisa M.</strong>
+                                <span>Physiotherapeutin, 38</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section" id="contact">
+            <div class="container">
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <span class="section-badge">Kontakt</span>
+                        <h2>Lass uns sprechen</h2>
+                        <p>Hast du Fragen zu unserem Test oder möchtest eine persönliche Beratung? Wir sind für dich da!</p>
+                        
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <span class="contact-icon">📧</span>
+                                <div>
+                                    <strong>E-Mail</strong>
+                                    <a href="mailto:info@bewegungscheck.ai">info@bewegungscheck.ai</a>
+                                </div>
+                            </div>
+                            <div class="contact-method">
+                                <span class="contact-icon">📞</span>
+                                <div>
+                                    <strong>Telefon</strong>
+                                    <a href="tel:+4912345678">+49 123 456 78</a>
+                                </div>
+                            </div>
+                            <div class="contact-method">
+                                <span class="contact-icon">📍</span>
+                                <div>
+                                    <strong>Adresse</strong>
+                                    <span>Musterstraße 1, 12345 Berlin</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form-container">
+                        <form class="contact-form" id="contact-form">
+                            <div class="form-group">
+                                <label for="name">Name *</label>
+                                <input type="text" id="name" name="name" placeholder="Dein vollständiger Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">E-Mail *</label>
+                                <input type="email" id="email" name="email" placeholder="deine@email.de" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Betreff</label>
+                                <select id="subject" name="subject">
+                                    <option value="">Bitte auswählen...</option>
+                                    <option value="beratung">Persönliche Beratung</option>
+                                    <option value="frage">Allgemeine Frage</option>
+                                    <option value="feedback">Feedback</option>
+                                    <option value="kooperation">Kooperationsanfrage</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Nachricht *</label>
+                                <textarea id="message" name="message" rows="5" placeholder="Wie können wir dir helfen?" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-large full-width">Nachricht senden</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Bewegungstest</h4>
-                    <p style="color: #a0aec0;">Ihre Beweglichkeit ist unsere Priorität. Professionelle Tests für ein besseres Wohlbefinden.</p>
+                <div class="footer-section footer-brand">
+                    <h4>BewegungsCheck AI</h4>
+                    <p>Dein Partner für bessere Beweglichkeit. Wissenschaftlich fundiert, einfach durchzuführen.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="Instagram">📷</a>
+                        <a href="#" aria-label="LinkedIn">💼</a>
+                        <a href="#" aria-label="YouTube">🎬</a>
+                    </div>
                 </div>
                 <div class="footer-section">
-                    <h4>Quick Links</h4>
+                    <h4>Navigation</h4>
                     <ul>
                         <li><a href="#home">Home</a></li>
+                        <li><a href="#quicktest">Schnelltest</a></li>
                         <li><a href="#features">Features</a></li>
                         <li><a href="#about">Über uns</a></li>
                         <li><a href="#contact">Kontakt</a></li>
@@ -526,20 +447,26 @@
                         <li><a href="#">Impressum</a></li>
                         <li><a href="#">Datenschutz</a></li>
                         <li><a href="#">AGB</a></li>
+                        <li><a href="#">Cookie-Einstellungen</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>Kontakt</h4>
-                    <ul>
-                        <li><a href="mailto:info@bewegungstest.de">info@bewegungstest.de</a></li>
-                        <li><a href="tel:+49123456789">+49 123 456 789</a></li>
-                    </ul>
+                    <h4>Newsletter</h4>
+                    <p>Erhalte Tipps zur Beweglichkeit direkt in dein Postfach.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Deine E-Mail" required>
+                        <button type="submit" class="btn btn-primary">Anmelden</button>
+                    </form>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Bewegungstest. Alle Rechte vorbehalten.</p>
+                <p>© 2025 BewegungsCheck AI. Alle Rechte vorbehalten.</p>
+                <p class="footer-disclaimer">Hinweis: Dieser Test ersetzt keine medizinische Diagnose oder Behandlung.</p>
             </div>
         </div>
     </footer>
+
+    <!-- JavaScript -->
+    <script src="js/quicktest.js"></script>
 </body>
 </html>
