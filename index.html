@@ -2,269 +2,1056 @@
 <html lang="de">
 <head>
   <meta charset="utf-8">
-  <title>BewegungsCheck AI | Test & KI-Programm</title>
+  <title>FitGenius AI | Intelligentes Bewegungstraining</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --bg: #fbfbfd;
+      --bg-grey: #f5f5f7;
+      --bg-dark: #1d1d1f;
+      --text: #1d1d1f;
+      --text-light: #f5f5f7;
+      --muted: #6e6e73;
+      --accent: #0071e3;
+      --accent-hover: #0077ed;
+      --border: #d2d2d7;
+      --shadow: rgba(0, 0, 0, 0.1);
+      --success: #34c759;
+      --warning: #ff9500;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(20px);
+      background: rgba(29, 29, 31, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--text-light);
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-logo-icon {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, var(--accent) 0%, #005bb5 100%);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 14px;
+      opacity: 0.9;
+      transition: opacity 0.2s;
+      display: none;
+    }
+
+    .nav-links a:hover {
+      opacity: 1;
+    }
+
+    .lang-switch {
+      display: flex;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      padding: 2px;
+      gap: 2px;
+    }
+
+    .lang-switch button {
+      padding: 4px 10px;
+      border: none;
+      background: transparent;
+      color: var(--text-light);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s;
+      opacity: 0.7;
+    }
+
+    .lang-switch button.active {
+      background: var(--accent);
+      opacity: 1;
+    }
+
+    .btn-login {
+      background: var(--accent);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-login:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    /* Banner */
+    .banner {
+      background: linear-gradient(135deg, var(--accent) 0%, #005bb5 100%);
+      color: white;
+      text-align: center;
+      padding: 12px 20px;
+      font-size: 14px;
+    }
+
+    .banner a {
+      color: white;
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #000 0%, #1a1a2e 100%);
+      color: var(--text-light);
+      padding: 60px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background: radial-gradient(circle at top right, rgba(0, 113, 227, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-flex {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      line-height: 1.5;
+      color: #d2d2d7;
+      margin-bottom: 32px;
+      max-width: 600px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .hero-image {
+      position: relative;
+    }
+
+    .hero-image img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+    }
+
+    .stat-number {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: #d2d2d7;
+    }
+
+    /* Buttons */
+    .btn-primary,
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 113, 227, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-light);
+      border: 2px solid var(--text-light);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Sections */
+    .section {
+      padding: 80px 24px;
+    }
+
+    .section:nth-child(even) {
+      background: white;
+    }
+
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section h2 {
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .section-intro {
+      font-size: 18px;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 48px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Tiles Grid */
+    .tiles {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .tile {
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      border: 1px solid var(--border);
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .tile:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 40px var(--shadow);
+      border-color: var(--accent);
+    }
+
+    .tile-dark {
+      background: linear-gradient(135deg, var(--bg-dark) 0%, #2a2a3e 100%);
+      color: var(--text-light);
+      border-color: var(--bg-dark);
+    }
+
+    .tile h3 {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 16px 0 12px;
+    }
+
+    .tile p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .tile-dark p {
+      color: #d2d2d7;
+    }
+
+    .tile-link {
+      display: inline-flex;
+      align-items: center;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      margin-top: 12px;
+      gap: 4px;
+    }
+
+    .tile-dark .tile-link {
+      color: var(--text-light);
+    }
+
+    .tile-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--accent) 0%, #005bb5 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    /* Stage Sections */
+    .stage-section {
+      background: var(--bg-grey);
+    }
+
+    .stage-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .stage-label {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .stage-text h2 {
+      font-size: 36px;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .stage-text .section-text {
+      font-size: 18px;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .bullet-list {
+      list-style: none;
+      margin: 24px 0;
+    }
+
+    .bullet-list li {
+      font-size: 16px;
+      padding: 12px 0;
+      padding-left: 32px;
+      position: relative;
+      color: var(--text);
+    }
+
+    .bullet-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .stage-image img {
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 12px 32px var(--shadow);
+    }
+
+    .stage-price {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin: 24px 0;
+    }
+
+    .price-tag {
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .price-note {
+      font-size: 16px;
+      color: var(--muted);
+    }
+
+    /* Quicktest Form */
+    .hero-grey {
+      background: var(--bg-grey);
+      color: var(--text);
+    }
+
+    .hero-grey::before {
+      display: none;
+    }
+
+    .hero-narrow {
+      max-width: 800px;
+    }
+
+    .quicktest-form {
+      margin-top: 40px;
+    }
+
+    .form-row {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-row label {
+      display: block;
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-size: 15px;
+      font-family: inherit;
+      background: white;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .quicktest-result {
+      margin-top: 32px;
+      padding: 32px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px var(--shadow);
+    }
+
+    .quicktest-result h3 {
+      font-size: 24px;
+      margin-bottom: 16px;
+      color: var(--accent);
+    }
+
+    /* Subscription Slider */
+    .subscription-slider-section {
+      background: var(--bg-grey);
+    }
+
+    .slider-title {
+      margin-bottom: 8px;
+    }
+
+    .subscription-slider {
+      position: relative;
+      margin-top: 48px;
+    }
+
+    .slider-container {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slider-track {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      transition: transform 0.3s ease;
+    }
+
+    .slider-nav {
+      display: none;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .slider-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--border);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: all 0.3s;
+    }
+
+    .slider-dot.active {
+      background: var(--accent);
+      width: 32px;
+      border-radius: 5px;
+    }
+
+    .subscription-card {
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      border: 2px solid var(--border);
+      transition: all 0.3s;
+    }
+
+    .subscription-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px var(--shadow);
+      border-color: var(--accent);
+    }
+
+    .card-featured {
+      border-color: var(--accent);
+      position: relative;
+      background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
+    }
+
+    .card-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: white;
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .card-header h3 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .card-price {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin: 16px 0 24px;
+    }
+
+    .price-amount {
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .price-period {
+      font-size: 16px;
+      color: var(--muted);
+    }
+
+    .card-features {
+      list-style: none;
+      margin: 24px 0 32px;
+    }
+
+    .card-features li {
+      padding: 10px 0;
+      font-size: 15px;
+      color: var(--text);
+    }
+
+    .card-btn {
+      width: 100%;
+      background: var(--accent);
+      color: white;
+      border: none;
+    }
+
+    .card-featured .card-btn {
+      background: linear-gradient(135deg, var(--accent) 0%, #005bb5 100%);
+    }
+
+    /* Login Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 16px;
+      padding: 48px;
+      max-width: 480px;
+      width: 100%;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--muted);
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+
+    .modal-close:hover {
+      background: var(--bg-grey);
+    }
+
+    .modal h2 {
+      font-size: 28px;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-size: 15px;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    /* Dashboard */
+    .dashboard {
+      display: none;
+      padding: 80px 24px;
+      background: var(--bg);
+    }
+
+    .dashboard.active {
+      display: block;
+    }
+
+    .dashboard-header {
+      max-width: 1200px;
+      margin: 0 auto 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .dashboard-header h1 {
+      font-size: 36px;
+      font-weight: 700;
+    }
+
+    .btn-logout {
+      padding: 10px 20px;
+      background: var(--muted);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .btn-logout:hover {
+      background: var(--text);
+    }
+
+    .dashboard-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .dashboard-card {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+
+    .dashboard-card h3 {
+      font-size: 22px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--accent) 0%, #005bb5 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 20px;
+    }
+
+    .upload-area {
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      padding: 40px;
+      text-align: center;
+      margin-top: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .upload-area:hover {
+      border-color: var(--accent);
+      background: var(--bg-grey);
+    }
+
+    .upload-area input[type="file"] {
+      display: none;
+    }
+
+    .integration-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .integration-card {
+      padding: 20px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .integration-card:hover {
+      border-color: var(--accent);
+      background: var(--bg-grey);
+    }
+
+    .integration-card.connected {
+      border-color: var(--success);
+      background: rgba(52, 199, 89, 0.05);
+    }
+
+    .integration-icon {
+      font-size: 36px;
+      margin-bottom: 8px;
+    }
+
+    .integration-name {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .integration-status {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .integration-card.connected .integration-status {
+      color: var(--success);
+    }
+
+    /* Responsive Design */
+    @media (min-width: 768px) {
+      .nav-links a {
+        display: block;
+      }
+
+      .hero {
+        padding: 100px 24px;
+      }
+
+      .hero-text h1 {
+        font-size: 56px;
+      }
+
+      .hero-sub {
+        font-size: 22px;
+      }
+
+      .hero-flex {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .tiles {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .stage-content {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .stage-content-reverse {
+        direction: rtl;
+      }
+
+      .stage-content-reverse > * {
+        direction: ltr;
+      }
+
+      .slider-track {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 767px) {
+      .hero-stats {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .slider-nav {
+        display: flex;
+      }
+
+      .subscription-card {
+        scroll-snap-align: start;
+      }
+
+      .slider-container {
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+
+      .slider-container::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Top-Nav -->
+  <!-- Navigation -->
   <header class="nav">
     <div class="nav-inner">
-      <div class="nav-logo">BewegungsCheck AI</div>
-      <nav class="nav-links">
-        <a href="#tests">Stufen</a>
-        <a href="#integrationen">Integrationen</a>
-        <a href="#about">Über mich</a>
-        <a href="#kontakt">Kontakt</a>
-      </nav>
+      <div class="nav-logo">
+        <div class="nav-logo-icon">⚡</div>
+        <span data-lang-de="FitGenius AI" data-lang-en="FitGenius AI">FitGenius AI</span>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-links">
+          <a href="#tests" data-lang-de="Stufen" data-lang-en="Levels">Stufen</a>
+          <a href="#subscription" data-lang-de="Abo" data-lang-en="Plans">Abo</a>
+          <a href="#dashboard-section" data-lang-de="Dashboard" data-lang-en="Dashboard">Dashboard</a>
+        </nav>
+        <div class="lang-switch">
+          <button class="active" data-lang="de">DE</button>
+          <button data-lang="en">EN</button>
+        </div>
+        <a href="#" class="btn-login" id="login-btn">
+          <span>👤</span>
+          <span data-lang-de="Login" data-lang-en="Login">Login</span>
+        </a>
+      </div>
     </div>
   </header>
 
-  <!-- Hinweis-Leiste -->
+  <!-- Banner -->
   <section class="banner">
-    <p>Starte <a href="#quicktest">jetzt</a> deinen kostenlosen Bewegungs- & Fitness-Schnelltest (Stufe 1).</p>
+    <p data-lang-de="Starte jetzt deinen kostenlosen Bewegungs- & Fitness-Schnelltest (Stufe 1)." 
+       data-lang-en="Start your free movement & fitness quick test now (Level 1).">
+      <span data-lang-de="Starte" data-lang-en="Start">Starte</span> 
+      <a href="#quicktest" data-lang-de="jetzt" data-lang-en="now">jetzt</a> 
+      <span data-lang-de="deinen kostenlosen Bewegungs- & Fitness-Schnelltest (Stufe 1)." 
+            data-lang-en="your free movement & fitness quick test (Level 1).">
+        deinen kostenlosen Bewegungs- & Fitness-Schnelltest (Stufe 1).
+      </span>
+    </p>
   </section>
 
-  <!-- Hero-Sektion -->
-  <main>
-    <section class="hero hero-light" id="top">
-      <div class="hero-inner hero-flex">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-flex">
         <div class="hero-text">
-          <h1>Bewegung testen. Mit KI gezielt trainieren.</h1>
-          <p class="hero-sub">
-            In drei Stufen: kostenloser Bewegungs-Check, einmalige Analyse mit Plan
-            und KI-basiertes Abo-Programm mit Wearable-Integration.
+          <h1 data-lang-de="Intelligentes Training. Messbare Ergebnisse." 
+              data-lang-en="Smart Training. Measurable Results.">
+            Intelligentes Training. Messbare Ergebnisse.
+          </h1>
+          <p class="hero-sub" data-lang-de="KI-gestützte Bewegungsanalyse und personalisierte Trainingsprogramme für deine Fitness-Ziele. Von Schnelltest bis Vollbetreuung."
+             data-lang-en="AI-powered movement analysis and personalized training programs for your fitness goals. From quick test to full coaching.">
+            KI-gestützte Bewegungsanalyse und personalisierte Trainingsprogramme für deine Fitness-Ziele. Von Schnelltest bis Vollbetreuung.
           </p>
           <div class="hero-actions">
-            <a href="#quicktest" class="btn-primary">Gratis-Schnelltest starten</a>
-            <a href="#tests" class="btn-secondary">Alle Stufen ansehen</a>
+            <a href="#quicktest" class="btn-primary">
+              <span>🚀</span>
+              <span data-lang-de="Gratis-Test starten" data-lang-en="Start Free Test">Gratis-Test starten</span>
+            </a>
+            <a href="#tests" class="btn-secondary">
+              <span data-lang-de="Mehr erfahren" data-lang-en="Learn More">Mehr erfahren</span>
+            </a>
           </div>
         </div>
         <div class="hero-image">
-          <!-- Athlete with fitness tracker analyzing data -->
           <img
             src="https://images.pexels.com/photos/4498606/pexels-photo-4498606.jpeg?auto=compress&cs=tinysrgb&w=800"
-            alt="Sportler analysiert Trainingsdaten auf Smartwatch"
+            alt="Training Analysis"
             loading="lazy"
           >
         </div>
       </div>
-    </section>
-
-    <!-- Sektion: 3 Stufen - Übersicht -->
-    <section class="section" id="tests">
-      <div class="section-inner">
-        <h2>Dein Weg in drei Stufen</h2>
-        <p class="section-intro">Von der ersten Einschätzung bis zum vollständig individualisierten KI-Programm</p>
-        <div class="tiles">
-          <!-- STUFE 1 -->
-          <article class="tile tile-dark">
-            <img class="tile-icon" src="images/icon-quicktest.svg" alt="Icon Schnelltest">
-            <h3>Stufe 1: Gratis-Schnelltest</h3>
-            <p>In rund 10 Minuten erhältst du eine erste Einschätzung deiner Bewegungs- und Fitnessfähigkeiten – direkt im Browser.</p>
-            <a href="#stage1" class="tile-link">Jetzt kostenlos starten ›</a>
-          </article>
-
-          <!-- STUFE 2 -->
-          <article class="tile tile-light">
-            <img class="tile-icon" src="images/icon-extended-test.svg" alt="Icon Detaillierter Test">
-            <h3>Stufe 2: Einmalige Analyse & Plan</h3>
-            <p>Auf Basis deines Tests erhältst du eine ausführliche Auswertung plus individuellen Trainingsplan – optional mit Wearable-Daten verfeinert.</p>
-            <a href="#stage2" class="tile-link">Details ansehen ›</a>
-          </article>
-
-          <!-- STUFE 3 -->
-          <article class="tile tile-light">
-            <img class="tile-icon" src="images/icon-coaching.svg" alt="Icon KI-Coaching">
-            <h3>Stufe 3: KI-Abo-Programm</h3>
-            <p>Laufendes, individuelles Programm mit Language-Model-Unterstützung und regelmäßigen Updates auf Basis deiner Wearables.</p>
-            <a href="#stage3" class="tile-link">Abo kennenlernen ›</a>
-          </article>
+      
+      <div class="hero-stats">
+        <div class="stat-card">
+          <span class="stat-number">5.000+</span>
+          <span class="stat-label" data-lang-de="Aktive Nutzer" data-lang-en="Active Users">Aktive Nutzer</span>
         </div>
-      </div>
-    </section>
-
-    <!-- STUFE 1: Gratis-Schnelltest -->
-    <section class="section stage-section" id="stage1">
-      <div class="section-inner stage-inner">
-        <div class="stage-content">
-          <div class="stage-text">
-            <span class="stage-label">Stufe 1</span>
-            <h2>Gratis-Schnelltest</h2>
-            <p class="section-text">
-              Beantworte ein paar Aussagen spontan und erhalte eine erste Einschätzung zu deinem Bewegungs- und Belastungsprofil – komplett kostenlos und unverbindlich.
-            </p>
-            <ul class="bullet-list">
-              <li>Online-Test mit klaren Anleitungen für jede Übung</li>
-              <li>Messung von Balance, Beweglichkeit, Kraft und Koordination</li>
-              <li>Sofortiger Ergebnis-Report mit Gesamt-Score</li>
-              <li>Kostenfreie Basis-Empfehlungen für deine nächsten Schritte</li>
-            </ul>
-            <a href="#quicktest" class="btn-primary">Test jetzt starten</a>
-          </div>
-          <div class="stage-image">
-            <!-- Balance test: person doing single-leg stance -->
-            <img
-              src="https://images.pexels.com/photos/4662438/pexels-photo-4662438.jpeg?auto=compress&cs=tinysrgb&w=800"
-              alt="Person führt Balance-Test durch"
-              loading="lazy"
-            >
-          </div>
+        <div class="stat-card">
+          <span class="stat-number">94%</span>
+          <span class="stat-label" data-lang-de="Zufriedenheit" data-lang-en="Satisfaction">Zufriedenheit</span>
         </div>
-      </div>
-    </section>
-
-    <!-- Schnelltest-Formular -->
-    <section class="section hero hero-grey" id="quicktest">
-      <div class="hero-inner hero-narrow">
-        <h2>Dein Gratis-Schnelltest</h2>
-        <p class="hero-sub hero-sub-dark">
-          Beantworte ein paar Aussagen spontan. Am Ende erhältst du eine erste Einschätzung zu deinem Bewegungs- und Belastungsprofil.
-        </p>
-        <form class="quicktest-form" id="quicktest-form">
-          <div class="form-row">
-            <label>Ich kann mich im Alltag schmerzfrei und ohne größere Einschränkungen bewegen.</label>
-            <select name="q1">
-              <option value="1">Trifft kaum zu</option>
-              <option value="2">Trifft eher nicht zu</option>
-              <option value="3">Teils / teils</option>
-              <option value="4">Trifft eher zu</option>
-              <option value="5">Trifft voll zu</option>
-            </select>
-          </div>
-          <div class="form-row">
-            <label>Ich fühle mich nach einem typischen Arbeitstag noch energiegeladen genug für Bewegung.</label>
-            <select name="q2">
-              <option value="1">Trifft kaum zu</option>
-              <option value="2">Trifft eher nicht zu</option>
-              <option value="3">Teils / teils</option>
-              <option value="4">Trifft eher zu</option>
-              <option value="5">Trifft voll zu</option>
-            </select>
-          </div>
-          <div class="form-row">
-            <label>Ich traue mir aktuell zu, regelmäßig 2–3 Trainingseinheiten pro Woche einzuplanen.</label>
-            <select name="q3">
-              <option value="1">Trifft kaum zu</option>
-              <option value="2">Trifft eher nicht zu</option>
-              <option value="3">Teils / teils</option>
-              <option value="4">Trifft eher zu</option>
-              <option value="5">Trifft voll zu</option>
-            </select>
-          </div>
-          <button type="button" id="quicktest-evaluate" class="btn-primary">Auswertung anzeigen</button>
-        </form>
-        <div id="quicktest-result" class="quicktest-result"></div>
-      </div>
-    </section>
-
-    <!-- STUFE 2: Einmaliger Test + Plan -->
-    <section class="section stage-section" id="stage2">
-      <div class="section-inner stage-inner">
-        <div class="stage-content stage-content-reverse">
-          <div class="stage-image">
-            <!-- Person reviewing detailed training plan on tablet -->
-            <img
-              src="https://images.pexels.com/photos/3768916/pexels-photo-3768916.jpeg?auto=compress&cs=tinysrgb&w=800"
-              alt="Detaillierte Trainingsplanung auf Tablet"
-              loading="lazy"
-            >
-          </div>
-          <div class="stage-text">
-            <span class="stage-label">Stufe 2</span>
-            <h2>Einmalige Analyse & individueller Plan</h2>
-            <p class="section-text">
-              Aufbauend auf deinem Schnelltest erhältst du ein umfassendes Bewegungsprofil und einen strukturierten Trainingsplan für mehrere Wochen – erstellt mit Hilfe eines spezialisierten Language Models.
-            </p>
-            <ul class="bullet-list">
-              <li>Ausführliche Auswertung deines Profils mit klaren Prioritäten</li>
-              <li>Individueller Trainingsplan (4–8 Wochen) mit Progression</li>
-              <li>Optional: Verfeinerung mit Apple Health, Garmin oder Fitbit-Daten</li>
-              <li>Plan als übersichtliches PDF oder im Online-Dashboard</li>
-            </ul>
-            <div class="stage-price">
-              <span class="price-tag">79 €</span>
-              <span class="price-note">einmalig, ohne Abo</span>
-            </div>
-            <a class="btn-primary" href="/checkout/analysis-plan">Analyse & Plan buchen</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- STUFE 3: Abo mit KI-Updates -->
-    <section class="section stage-section" id="stage3">
-      <div class="section-inner stage-inner">
-        <div class="stage-content">
-          <div class="stage-text">
-            <span class="stage-label">Stufe 3</span>
-            <h2>KI-Abo-Programm mit laufenden Updates</h2>
-            <p class="section-text">
-              Für alle, die dauerhaft begleitet werden möchten: Dein Programm passt sich laufend an deinen Alltag, deine Rückmeldungen und – wenn du möchtest – deine Wearable-Daten an.
-            </p>
-            <ul class="bullet-list">
-              <li>Fortlaufendes, individuelles Trainingsprogramm</li>
-              <li>Regelmäßige KI-basierte Anpassungen (wöchentlich oder täglich)</li>
-              <li>Einbindung von Apple Health, Garmin, Fitbit für HRV, Schlaf & Aktivität</li>
-              <li>Optional: Chat-ähnliche KI-Coach-Funktion für Fragen</li>
-            </ul>
-          </div>
-          <div class="stage-image">
-            <!-- AI coaching interface with data visualization -->
-            <img
-              src="https://images.pexels.com/photos/5327580/pexels-photo-5327580.jpeg?auto=compress&cs=tinysrgb&w=800"
-              alt="KI-gestützte Trainingsanalyse mit Datendarstellung"
-              loading="lazy"
-            >
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Abo-Slider -->
-    <section class="section subscription-slider-section">
-      <div class="section-inner">
-        <h2 class="slider-title">Wähle dein Abo-Modell</h2>
-        <p class="section-intro">Flexible monatliche Laufzeit – jederzeit kündbar</p>
-        
-        <div class="subscription-slider">
-          <button class="slider-btn slider-btn-prev" id="slider-prev" aria-label="Vorheriges Abo">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
-          </button>
-          
-          <div class="slider-container">
-            <div class="slider-track" id="slider-track">
-              <!-- BASIC -->
-              <article class="subscription-card">
-                <div class="card-header">
-                  <h3>Basic Abo</h3>
-                  <div class="card-price">
-                    <span class="price-amount">19 €</span>
-                    <span class="price-period">/ Monat</span>
-                  </div>
-                </div>
-                <ul class="card-features">
-                  <li>✓ Individuelles Trainingsprogramm</li>
-                  <li>✓ Monatliche KI-Aktualisierung</li>
-                  <li>✓ Basis-Integration von Aktivitätsdaten</li>
-                  <li>✓ Schritte & Trainingsminuten-Tracking</li>
-                  <li>✓ E-Mail-Support</li>
-                </ul>
-                <a class="btn-secondary card-btn" href="/checkout/basic">Basic starten</a>
-              </article>
-
-              <!-- PRO (Featured) -->
-              <article class="subscription-card card-featured">
-                <div class="card-badge">Beliebteste Wahl</div>
-                <div class="card-header">
-                  <h3>Pro Abo</h3>
-                  <div class="card-price">
-                    <span class="price-amount">39 €</span>
-                    <span class="price-period">/ Monat</span>
-                  </div>
-                </div>
-                <ul class="card-features">
-                  <li>✓ Alle Basic-Funktionen</li
+        <div class="stat-card">
+          <span class="stat-number">24/7</span>
+          <span class="stat-label" data-lang-de="KI-Support" data-lang-en="AI Support">KI-Support
