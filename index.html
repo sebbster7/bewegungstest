@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Persönlichkeitstraining | Schnelltest & Coaching</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top-Nav -->
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="nav-logo">StefRe</div>
+      <nav class="nav-links">
+        <a href="#tests">Tests</a>
+        <a href="#coaching">Coaching</a>
+        <a href="#about">Über mich</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hinweis-Leiste -->
+  <section class="banner">
+            <p>Starte <a href="#quicktest">jetzt</a> deinen kostenlosen 10-Minuten-Schnelltest für dein Persönlichkeitsprofil.</p>  </section>
+
+  <!-- Hero-Sektion Schnelltest -->
+  <main>
+    <section class="hero hero-light" id="top">
+      <div class="hero-inner hero-flex">
+        <div class="hero-text">
+          <h1>Persönlichkeit verstehen. Entscheidungen klarer treffen.</h1>
+          <p class="hero-sub">
+            Online Persönlichkeitstraining in drei Schritten: Gratis-Schnelltest, detaillierter Test
+            und persönliches Coaching für Beruf & Alltag.
+          </p>
+          <div class="hero-actions">
+            <a href="#quicktest" class="btn-primary">Gratis-Schnelltest starten</a>
+            <a href="#tests" class="btn-secondary">Mehr erfahren</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <!-- Replaced placeholder with Pexels photo ID 4343780 -->
+          <img
+            src="https://images.pexels.com/photos/4343780/pexels-photo-4343780.jpeg?auto=compress&cs=tinysrgb&w=800"
+            alt="Frau mit Notizbuch, nachdenkliche Pose"
+            loading="lazy"
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Sektion: 3 Stufen -->
+    <section class="section" id="tests">
+      <div class="section-inner">
+        <h2>Dein Weg in drei Stufen</h2>
+        <div class="tiles">
+          <article class="tile tile-dark">
+            <img class="tile-icon" src="images/icon-quicktest.svg" alt="Icon Schnelltest">
+            <h3>Gratis-Schnelltest</h3>
+            <p>In rund 10 Minuten erhältst du eine erste Einschätzung deiner Persönlichkeit – direkt im Browser.</p>
+            <a href="#quicktest" class="tile-link">Jetzt starten ›</a>
+          </article>
+          <article class="tile tile-light">
+            <img class="tile-icon" src="images/icon-extended-test.svg" alt="Icon Detaillierter Test">
+            <h3>Detaillierter Test (49 €)</h3>
+            <p>Mehrdimensionale Auswertung mit Stärken, Entwicklungsfeldern und konkreten Empfehlungen.</p>
+            <a href="#extended" class="tile-link">Details ansehen ›</a>
+          </article>
+          <article class="tile tile-light">
+            <img class="tile-icon" src="images/icon-coaching.svg" alt="Icon Coaching">
+            <h3>1:1 Coaching</h3>
+            <p>Übertrage dein Profil in klare Ziele und nächste Schritte – im individuellen Coaching.</p>
+            <a href="#coaching" class="tile-link">Coaching entdecken ›</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Schnelltest-Bereich -->
+    <section class="section hero hero-grey" id="quicktest">
+      <div class="hero-inner hero-narrow">
+        <h2>Gratis-Schnelltest</h2>
+        <p class="hero-sub hero-sub-dark">
+          Beantworte ein paar Aussagen spontan. Am Ende erhältst du eine erste Einschätzung deines Profils.
+        </p>
+        <form class="quicktest-form" id="quicktest-form">
+          <div class="form-row">
+            <label>Ich übernehme gerne Verantwortung in Gruppen.</label>
+            <select name="q1">
+              <option value="1">Trifft kaum zu</option>
+              <option value="2">Trifft eher nicht zu</option>
+              <option value="3">Teils / teils</option>
+              <option value="4">Trifft eher zu</option>
+              <option value="5">Trifft voll zu</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label>Struktur und Planung sind mir wichtig.</label>
+            <select name="q2">
+              <option value="1">Trifft kaum zu</option>
+              <option value="2">Trifft eher nicht zu</option>
+              <option value="3">Teils / teils</option>
+              <option value="4">Trifft eher zu</option>
+              <option value="5">Trifft voll zu</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label>Ich gehe offen auf neue Menschen zu.</label>
+            <select name="q3">
+              <option value="1">Trifft kaum zu</option>
+              <option value="2">Trifft eher nicht zu</option>
+              <option value="3">Teils / teils</option>
+              <option value="4">Trifft eher zu</option>
+              <option value="5">Trifft voll zu</option>
+            </select>
+          </div>
+          <button type="button" id="quicktest-evaluate" class="btn-primary">Auswertung anzeigen</button>
+        </form>
+        <div id="quicktest-result" class="quicktest-result"></div>
+      </div>
+    </section>
+
+    <!-- Detaillierter Test -->
+    <section class="section" id="extended">
+      <div class="section-inner">
+        <h2>Detaillierter Persönlichkeitstest (49 €)</h2>
+        <p class="section-text">
+          Aufbauend auf dem Schnelltest erhältst du ein umfassendes Profil mit mehreren Dimensionen,
+          einem klar strukturierten PDF-Report und konkreten Empfehlungen für deinen Alltag.
+        </p>
+        <div id="extended-root"><!-- extended module can render here --></div>
+      </div>
+    </section>
+
+    <!-- Coaching -->
+    <section class="section section-split" id="coaching">
+      <div class="section-inner split-inner">
+        <div>
+          <h2>1:1 Coaching</h2>
+          <p class="section-text">
+            Im Coaching werden aus deinem Persönlichkeitsprofil konkrete Schritte: Ziele definieren, Prioritäten klären,
+            Routinen etablieren. Online und flexibel planbar.
+          </p>
+          <ul class="bullet-list">
+            <li>Karriere- und Rollenklärung</li>
+            <li>Führung & Zusammenarbeit</li>
+            <li>Umgang mit Stress & Entscheidungen</li>
+          </ul>
+
+          <!-- Added Pexels photo ID 4098366 after the coaching text -->
+          <img
+            src="https://images.pexels.com/photos/4098366/pexels-photo-4098366.jpeg?auto=compress&cs=tinysrgb&w=800"
+            alt="Zwei Personen in einem Coaching-Gespräch"
+            class="coaching-image"
+            loading="lazy"
+            style="max-width:480px; margin-top:18px;"
+          >
+        </div>
+
+        <!-- removed separate placeholder wrapper to avoid duplicate images -->
+      </div>
+    </section>
+
+    <!-- Über mich -->
+    <section class="section" id="about">
+      <div class="section-inner">
+        <h2>Über mich</h2>
+        <p class="section-text">
+          Hier kannst du kurz deinen beruflichen Hintergrund, deine Coaching-Schwerpunkte und Qualifikationen vorstellen.
+        </p>
+
+        <!-- Added professional headshot (Pexels photo ID 30767577) -->
+        <img
+          src="https://images.pexels.com/photos/30767577/pexels-photo-30767577.jpeg?auto=compress&cs=tinysrgb&w=800"
+          alt="Professionelles Portrait"
+          loading="lazy"
+          class="about-image"
+          style="width:140px;height:140px;object-fit:cover;border-radius:50%;margin-top:16px;"
+        >
+      </div>
+    </section>
+
+    <!-- Kontakt -->
+    <section class="section hero hero-grey" id="kontakt">
+      <div class="hero-inner hero-narrow">
+        <h2>Kontakt & Anfrage</h2>
+        <form class="contact-form" id="contact-form">
+          <div class="form-row">
+            <label>Name</label>
+            <input type="text" name="name" required>
+          </div>
+          <div class="form-row">
+            <label>E-Mail</label>
+            <input type="email" name="email" required>
+          </div>
+          <div class="form-row">
+            <label>Nachricht</label>
+            <textarea name="message" rows="4" placeholder="Kurze Info zu deinem Anliegen"></textarea>
+          </div>
+          <button type="submit" class="btn-primary">Nachricht senden</button>
+        </form>
+        <div id="contact-result" class="contact-result"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <p class="footer-note">
+        Hinweis: Das Angebot dient der Persönlichkeitsentwicklung und ersetzt keine Psychotherapie oder medizinische Behandlung.
+      </p>
+      <div class="footer-bottom">
+        <span>© Persönlichkeitstraining – Jahr</span>
+        <span class="footer-links">
+          <a href="#">Impressum</a>
+          <a href="#">Datenschutz</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main module loader: imports and initializes feature modules -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
